@@ -1,10 +1,35 @@
 <template>
   <div class="froth">
-    <div v-for=" in 5" class="foam"></div>
+    <div v-for="index in 5" :key="index" class="foam" :style="foamStyle"></div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from "vue";
+import { currentCreamer } from "../stores/beverage";
+
+const foamColor = computed(() => {
+  if (currentCreamer.value.name === "No Cream") {
+    return "transparent";
+  }
+
+  if (currentCreamer.value.name === "Milk") {
+    return "#ecf2f7";
+  }
+
+  if (currentCreamer.value.name === "Cream") {
+    return "#f8f4e7";
+  }
+
+  if (currentCreamer.value.name === "Half & Half") {
+    return "#fff4d8";
+  }
+
+  return "#e4e0d2";
+});
+
+const foamStyle = computed(() => ({ backgroundColor: foamColor.value }));
+</script>
 <style lang="scss" scoped>
 .froth {
   overflow: visible;
@@ -14,14 +39,16 @@
   width: 100%;
   background-color: #c6c6c6;
   animation: pour-tea 2s 2s forwards;
+  transition: background-color 0.25s ease;
 }
+
 .foam {
   display: block;
-  background: #e4e0d2;
   border-radius: 30px;
   height: 40px;
   width: 40px;
   position: absolute;
+  transition: background-color 0.25s ease;
 }
 
 .foam:nth-child(1) {
