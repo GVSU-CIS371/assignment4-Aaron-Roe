@@ -4,7 +4,11 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { currentBase } from "../stores/beverage";
+import { storeToRefs } from "pinia";
+import { useBeverageStore } from "../stores/beverageStore";
+
+const beverageStore = useBeverageStore();
+const { currentBase } = storeToRefs(beverageStore);
 
 const baseStyle = computed(() => {
   if (currentBase.value.name === "Coffee") {

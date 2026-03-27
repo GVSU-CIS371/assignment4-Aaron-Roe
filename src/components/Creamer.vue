@@ -6,7 +6,11 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { currentCreamer } from "../stores/beverage";
+import { storeToRefs } from "pinia";
+import { useBeverageStore } from "../stores/beverageStore";
+
+const beverageStore = useBeverageStore();
+const { currentCreamer } = storeToRefs(beverageStore);
 
 const foamColor = computed(() => {
   if (currentCreamer.value.name === "No Cream") {

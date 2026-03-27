@@ -4,7 +4,11 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { currentSyrup } from "../stores/beverage";
+import { storeToRefs } from "pinia";
+import { useBeverageStore } from "../stores/beverageStore";
+
+const beverageStore = useBeverageStore();
+const { currentSyrup } = storeToRefs(beverageStore);
 
 const syrupStyle = computed(() => {
   if (currentSyrup.value.name === "Vanilla") {
